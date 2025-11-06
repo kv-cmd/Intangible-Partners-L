@@ -6,72 +6,76 @@
   <title>Intangible Partners</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Flip card utility (stable, 3D, small) */
-    .flip-wrap { perspective: 1200px; }
-    .flip {
-      position: relative; height: 16rem; width: 100%;
-      transform-style: preserve-3d; transition: transform .6s cubic-bezier(.42,0,.19,1.32);
+    /* GLOBAL PARALLAX VIDEO (fixed behind whole site) */
+    .site-video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;opacity:.28}
+    .site-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:-1}
+
+    /* FLIP CARDS (stable) */
+    .flip-wrap{perspective:1200px}
+    .flip{position:relative;width:100%;height:16rem;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.42,0,.19,1.32)}
+    .flip:hover{transform:rotateY(180deg)}
+    .flip.flipped{transform:rotateY(180deg)}
+    .flip-face{position:absolute;inset:0;border-radius:.75rem;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;text-align:center;padding:1.25rem}
+    .flip-back{transform:rotateY(180deg)}
+
+    /* TIMELINE (matches style from your ip_index.html) */
+    .tl{position:relative}
+    .tl:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:rgba(255,255,255,.12);transform:translateX(-50%)}
+    .tl-item{display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative;margin-bottom:28px}
+    .tl-badge{position:absolute;left:50%;top:22px;transform:translate(-50%,-50%);background:#fff;border-radius:9999px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 12px rgba(255,255,255,.35)}
+    .tl-card{background:rgba(17,19,25,.9);border:1px solid rgba(255,255,255,.10);border-radius:.75rem;padding:16px 18px;box-shadow:0 0 16px rgba(102,51,255,.22)}
+    .tl-step{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.35rem}
+
+    @media (max-width: 768px){
+      .tl:before{left:24px;transform:none}
+      .tl-badge{left:24px;transform:translateY(-50%)}
+      .tl-item{grid-template-columns:1fr}
+      .tl-item .tl-card{grid-column:1}
     }
-    .flip:hover { transform: rotateY(180deg); }
-    .flip.flipped { transform: rotateY(180deg); }
-    .flip-face {
-      position: absolute; inset: 0; border-radius: .75rem; backface-visibility: hidden;
-      display: flex; align-items: center; justify-content: center; text-align: center; padding: 1.25rem;
-    }
-    .flip-back { transform: rotateY(180deg); }
-    /* Global fixed video (parallax) */
-    .site-video {
-      position: fixed; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; opacity: .28;
-    }
-    .site-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: -1; }
   </style>
 </head>
 <body class="bg-black text-white antialiased">
 
-  <!-- GLOBAL BACKGROUND VIDEO (parallax across whole page) -->
+  <!-- GLOBAL BACKGROUND VIDEO -->
   <video class="site-video" autoplay muted loop playsinline>
     <source src="assets/Hero%20Video.mp4" type="video/mp4" />
   </video>
   <div class="site-overlay"></div>
 
-  <!-- NAV -->
+  <!-- NAVBAR -->
   <header class="sticky top-0 z-40 backdrop-blur-md bg-black/30 border-b border-white/10">
-    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center">
-      <img src="assets/ip-wordmark_big_white_cropped_rounded.png" alt="Intangible Partners"
-           class="h-[64px] md:h-[80px] lg:h-[96px] w-auto" />
-      <span class="ml-3 text-xs text-white/70 tracking-widest uppercase">an Ateklo Company</span>
+    <div class="max-w-6xl mx-auto px-4 h-[72px] flex items-center">
+      <!-- 60% sizing so it never drops below bar -->
+      <img src="assets/ip-wordmark_big_white_cropped_rounded.png" alt="Intangible Partners" class="h-10 md:h-12 lg:h-14 w-auto" />
+      <span class="ml-3 text-[10px] tracking-widest uppercase text-white/70">an Ateklo Company</span>
     </div>
   </header>
 
   <!-- HERO (centered) -->
-  <section class="relative flex items-center justify-center min-h-[78vh]">
-    <div class="absolute inset-0 pointer-events-none">
-      <div class="absolute -top-24 left-1/3 w-[36rem] h-[36rem] bg-[rgba(38,99,248,0.28)] blur-[120px] rounded-full"></div>
-      <div class="absolute -bottom-24 right-1/4 w-[32rem] h-[32rem] bg-[rgba(111,61,244,0.28)] blur-[120px] rounded-full"></div>
-    </div>
+  <section class="relative min-h-[78vh] flex items-center justify-center">
+    <div class="absolute -top-24 left-1/3 w-[36rem] h-[36rem] bg-[rgba(38,99,248,0.28)] blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="absolute -bottom-24 right-1/4 w-[32rem] h-[32rem] bg[rgba(111,61,244,0.28)] blur-[120px] rounded-full pointer-events-none"></div>
 
     <div class="relative z-10 text-center px-6 max-w-4xl">
-      <!-- HERO CENTER: use same new rounded wordmark -->
-      <div class="inline-block mb-6">
-        <img src="assets/ip-wordmark_big_white_cropped_rounded.png" class="h-28 md:h-32 w-auto" alt="Intangible Partners" />
+      <!-- IP SMILE with white plate behind (since your file is transparent) -->
+      <div class="inline-flex items-center justify-center bg-white rounded-2xl p-4 mb-6 shadow-[0_0_18px_rgba(255,255,255,.25)]">
+        <img src="assets/ip-mark.png" alt="IP" class="h-24 w-auto">
       </div>
+
       <h1 class="text-3xl md:text-5xl font-semibold leading-tight">
         We are building an <u>Intangible</u> workforce that <u>Partners</u> with companies to improve
         operational efficiency, productivity, and value creation.
       </h1>
       <div class="mt-6">
-        <a href="#contact" class="inline-block rounded-xl px-6 py-3 bg-white text-black font-semibold border border-white/20 hover:bg-white/90">
-          Work With Us
-        </a>
+        <a href="#contact" class="inline-block rounded-xl px-6 py-3 bg-white text-black font-semibold border border-white/20 hover:bg-white/90">Work With Us</a>
       </div>
     </div>
   </section>
 
-  <!-- CORE CAPABILITIES (flip tiles with icons on top) -->
-  <section class="relative py-24">
+  <!-- CAPABILITIES (flip) -->
+  <section class="py-24">
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-3xl font-semibold text-center mb-12">Our Core AI Infrastructure Pillars</h2>
-
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- AI Agents -->
         <div class="flip-wrap">
@@ -119,53 +123,53 @@
     </div>
   </section>
 
-  <!-- METHOD / TIMELINE (style inspired by ip_index.html) -->
-  <section class="relative py-24">
-    <div class="max-w-5xl mx-auto px-6">
+  <!-- TIMELINE (restored style from your previous HTML) -->
+  <section class="py-24">
+    <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-3xl font-semibold text-center mb-16">Our Method</h2>
 
-      <div class="relative">
-        <!-- spine -->
-        <div class="absolute left-5 top-0 bottom-0 w-px bg-white/15"></div>
-
-        <!-- step -->
-        <div class="relative pl-16 mb-12">
-          <div class="absolute left-2 top-1.5 h-6 w-6 rounded-full bg-teal-400 shadow-[0_0_10px_rgba(45,255,227,.45)]"></div>
-          <div class="bg-neutral-900 border border-white/10 rounded-xl p-6">
-            <div class="text-xs tracking-widest text-white/60 uppercase mb-2">Step One</div>
+      <div class="tl">
+        <!-- Row 1 -->
+        <div class="tl-item">
+          <div class="tl-card">
+            <div class="tl-step">STEP ONE</div>
             <div class="text-xl font-semibold mb-1">Map Operations & Identify Opportunity</div>
             <p class="text-white/80 text-sm">Deploy a human to map out operations and identify opportunity areas.</p>
           </div>
+          <div></div>
+          <div class="tl-badge"><img src="assets/step_icon_1.png" class="w-6 h-6" alt=""></div>
         </div>
 
-        <div class="relative pl-16 mb-12">
-          <div class="absolute left-2 top-1.5 h-6 w-6 rounded-full bg-purple-400 shadow-[0_0_10px_rgba(168,128,255,.45)]"></div>
-          <div class="bg-neutral-900 border border-white/10 rounded-xl p-6">
-            <div class="text-xs tracking-widest text-white/60 uppercase mb-2">Step Two</div>
+        <!-- Row 2 -->
+        <div class="tl-item">
+          <div></div>
+          <div class="tl-card">
+            <div class="tl-step">STEP TWO</div>
             <div class="text-xl font-semibold mb-1">Target Highest ROI</div>
             <p class="text-white/80 text-sm">Find the area of most value potential.</p>
           </div>
+          <div class="tl-badge"><img src="assets/step_icon_2.png" class="w-6 h-6" alt=""></div>
         </div>
 
-        <div class="relative pl-16">
-          <div class="absolute left-2 top-1.5 h-6 w-6 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(120,188,255,.45)]"></div>
-          <div class="bg-neutral-900 border border-white/10 rounded-xl p-6">
-            <div class="text-xs tracking-widest text-white/60 uppercase mb-2">Step Three</div>
+        <!-- Row 3 -->
+        <div class="tl-item">
+          <div class="tl-card">
+            <div class="tl-step">STEP THREE</div>
             <div class="text-xl font-semibold mb-1">Build & Implement Digital Workforce</div>
             <p class="text-white/80 text-sm">Begin building and implementing your digital workforce.</p>
           </div>
+          <div></div>
+          <div class="tl-badge"><img src="assets/step_icon_3.png" class="w-6 h-6" alt=""></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- OUTCOMES (flip metrics) -->
-  <section class="relative py-24">
+  <section class="py-24">
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-3xl font-semibold text-center mb-12">Proven Outcomes</h2>
-
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <!-- metric -->
         <div class="flip-wrap">
           <div class="flip">
             <div class="flip-face bg-neutral-900 border border-white/10">
@@ -176,7 +180,6 @@
             </div>
           </div>
         </div>
-
         <div class="flip-wrap">
           <div class="flip">
             <div class="flip-face bg-neutral-900 border border-white/10">
@@ -187,7 +190,6 @@
             </div>
           </div>
         </div>
-
         <div class="flip-wrap">
           <div class="flip">
             <div class="flip-face bg-neutral-900 border border-white/10">
@@ -198,7 +200,6 @@
             </div>
           </div>
         </div>
-
         <div class="flip-wrap">
           <div class="flip">
             <div class="flip-face bg-neutral-900 border border-white/10">
@@ -213,49 +214,39 @@
     </div>
   </section>
 
-  <!-- WHO WE SERVE (flip tiles) -->
-  <section class="relative py-24">
+  <!-- WHO WE SERVE (flip) -->
+  <section class="py-24">
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-3xl font-semibold text-center mb-12">Who We Serve</h2>
-
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="flip-wrap">
-          <div class="flip">
-            <div class="flip-face bg-neutral-900 border border-white/10 text-lg font-semibold">Startups</div>
-            <div class="flip-face flip-back bg-neutral-900 border border-white/10 text-sm text-white/80 leading-relaxed">
-              Give small teams leverage to operate like larger organizations without increasing headcount.
-            </div>
+        <div class="flip-wrap"><div class="flip">
+          <div class="flip-face bg-neutral-900 border border-white/10 text-lg font-semibold">Startups</div>
+          <div class="flip-face flip-back bg-neutral-900 border border-white/10 text-sm text-white/80 leading-relaxed">
+            Give small teams leverage to operate like larger organizations without increasing headcount.
           </div>
-        </div>
-        <div class="flip-wrap">
-          <div class="flip">
-            <div class="flip-face bg-neutral-900 border border-white/10 text-lg font-semibold">SMBs</div>
-            <div class="flip-face flip-back bg-neutral-900 border border-white/10 text-sm text-white/80 leading-relaxed">
-              Drive operational efficiency where resources are limited and value creation matters most.
-            </div>
+        </div></div>
+        <div class="flip-wrap"><div class="flip">
+          <div class="flip-face bg-neutral-900 border border-white/10 text-lg font-semibold">SMBs</div>
+          <div class="flip-face flip-back bg-neutral-900 border border-white/10 text-sm text-white/80 leading-relaxed">
+            Drive operational efficiency where resources are limited and value creation matters most.
           </div>
-        </div>
-        <div class="flip-wrap">
-          <div class="flip">
-            <div class="flip-face bg-neutral-900 border border-white/10 text-lg font-semibold">VC &amp; PE</div>
-            <div class="flip-face flip-back bg-neutral-900 border border-white/10 text-sm text-white/80 leading-relaxed">
-              Unlock hidden value inside portfolios by accelerating operational improvement across companies.
-            </div>
+        </div></div>
+        <div class="flip-wrap"><div class="flip">
+          <div class="flip-face bg-neutral-900 border border-white/10 text-lg font-semibold">VC &amp; PE</div>
+          <div class="flip-face flip-back bg-neutral-900 border border-white/10 text-sm text-white/80 leading-relaxed">
+            Unlock hidden value inside portfolios by accelerating operational improvement across companies.
           </div>
-        </div>
+        </div></div>
       </div>
     </div>
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="relative py-24">
+  <section id="contact" class="py-24">
     <div class="max-w-4xl mx-auto px-6 text-center">
       <h2 class="text-3xl font-semibold mb-6">Contact</h2>
       <p class="mb-8 text-white/90">Are you ready to start actually realizing the value of AI? Let’s get started — click here to contact us.</p>
-      <a href="mailto:info@intangiblepartners.com"
-         class="inline-block rounded-xl px-8 py-4 bg-white text-black font-semibold border border-white/20 hover:bg-white/90">
-        info@intangiblepartners.com
-      </a>
+      <a href="mailto:info@intangiblepartners.com" class="inline-block rounded-xl px-8 py-4 bg-white text-black font-semibold border border-white/20 hover:bg-white/90">info@intangiblepartners.com</a>
     </div>
   </section>
 
@@ -264,20 +255,11 @@
   </footer>
 
   <script>
-    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Mobile tap flip
-    document.querySelectorAll('.flip').forEach(el=>{
-      el.addEventListener('click',()=> el.classList.toggle('flipped'));
-    });
-
+    // Mobile tap flip support
+    document.querySelectorAll('.flip').forEach(el=>el.addEventListener('click',()=>el.classList.toggle('flipped')));
     // Slow global video
-    const v = document.querySelector('.site-video');
-    function setRate(){ try{ v.playbackRate = 0.5; }catch(e){} }
-    v?.addEventListener('loadedmetadata', setRate);
-    v?.addEventListener('play', setRate);
-    setRate();
+    const v=document.querySelector('.site-video'); function rate(){try{v.playbackRate=.5}catch(_){}} v?.addEventListener('loadedmetadata',rate); v?.addEventListener('play',rate); rate();
   </script>
 </body>
 </html>
