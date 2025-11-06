@@ -34,9 +34,26 @@ header{
   border-bottom:1px solid rgba(255,255,255,.10);
 }
 .navbar{height:64px;display:flex;align-items:center;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:10px;min-width:0}
-.brand img{height:32px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand img{height:28px}
 .brand small{color:var(--muted2);font-size:10px;letter-spacing:.08em}
+
+/* Logo plates (white background behind logos for visibility) */
+.logo-plate{
+  background:#fff;
+  padding:6px 10px;
+  border-radius:10px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.logo-plate img{display:block;height:28px}
+.hero-plate{
+  background:#fff;
+  display:inline-flex;
+  padding:10px 14px;
+  border-radius:14px;
+}
 
 /* HERO VIDEO BG */
 .hero{position:relative;overflow:hidden}
@@ -44,13 +61,10 @@ header{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;
 }
 .hero:after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:-1}
-
 .hero .glow{position:absolute;border-radius:9999px;filter:blur(130px);opacity:.6;pointer-events:none}
 .glow.one{width:36rem;height:36rem;left:50%;top:-20%;transform:translateX(-50%);background:var(--glow1)}
 .glow.two{width:32rem;height:32rem;right:33%;bottom:-25%;background:var(--glow2)}
-
-.hero-inner{padding-top:120px;padding-bottom:90px;text-align:center;position:relative;z-index:2}
-.hero .logo{height:120px}
+.hero-inner{padding-top:120px;padding-bottom:86px;text-align:center;position:relative;z-index:2}
 
 h1{
   color:#fff;margin:18px auto 6px;font-size:32px;font-weight:700;line-height:1.3;
@@ -67,35 +81,63 @@ h1{
 
 /* Sections + grids */
 .section{padding:64px 0}
-.section h3{text-align:center;font-size:26px;font-weight:800;margin-bottom:18px;text-shadow:0 0 6px var(--neon-soft)}
+.section h3{text-align:center;font-size:24px;font-weight:800;margin-bottom:14px;text-shadow:0 0 6px var(--neon-soft)}
 .section p.lead{color:var(--muted);max-width:820px;margin:0 auto;text-align:center;line-height:1.6}
 
-.grid{display:grid;gap:20px}
+.grid{display:grid;gap:16px}
 @media(min-width:768px){
   .grid.cols-3{grid-template-columns:repeat(3,1fr)}
   .grid.cols-4{grid-template-columns:repeat(4,1fr)}
 }
 
-/* FLIP TILE */
+/* SMALL FLIP TILES (160px) */
 .flip-wrap{perspective:1200px}
 .flip{
-  position:relative;width:100%;height:200px; /* equal height chosen */
+  position:relative;width:100%;height:160px;
   transform-style:preserve-3d;
   transition:.6s cubic-bezier(.42,0,.19,1.32);
 }
 .flip:hover{transform:rotateY(180deg)}
-.face{
-  position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;
-  background:var(--card);border:1px solid rgba(255,255,255,.10);
-  box-shadow:0 0 25px rgba(102,51,255,.25);
-  display:flex;align-items:center;justify-content:center;
-  text-align:center;color:#fff;font-weight:600;padding:24px;
-}
-.face.front{font-size:38px}
-.face.back{transform:rotateY(180deg);font-size:16px;font-weight:400;line-height:1.4;padding:28px}
 .flip.flipped{transform:rotateY(180deg)}
+.face{
+  position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;
+  background:var(--card);border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 0 18px rgba(102,51,255,.25);
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  text-align:center;color:#fff;padding:16px;
+}
+.face.front{font-weight:700;font-size:22px}
+.face.back{transform:rotateY(180deg);font-size:14px;line-height:1.45;font-weight:500;padding:18px}
 
-/* Reveal helper (initial state handled by ScrollReveal inline styles) */
+/* Icon in small flip */
+.icon-badge{
+  background:#fff;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;flex:0 0 44px;overflow:hidden;
+}
+.icon-badge img{max-width:36px;max-height:36px}
+
+/* OUTCOMES numbers (still small tiles) */
+.front-metric{font-size:28px}
+
+/* Vertical timeline (Steps) */
+.timeline{
+  position:relative;margin:36px auto 0;max-width:760px;padding-left:32px;
+}
+.timeline:before{
+  content:'';position:absolute;left:16px;top:0;bottom:0;width:2px;background:rgba(255,255,255,.18);
+}
+.tl-item{
+  position:relative;margin:0 0 24px;
+  background:var(--card);border:1px solid rgba(255,255,255,.10);border-radius:12px;padding:14px 16px;
+  box-shadow:0 0 18px rgba(102,51,255,.25);
+}
+.tl-item:last-child{margin-bottom:0}
+.tl-dot{
+  position:absolute;left:-2px;top:16px;width:12px;height:12px;border-radius:9999px;background:#fff;
+  box-shadow:0 0 10px rgba(255,255,255,.35);
+}
+
+/* Reveal helper (ScrollReveal targets) */
 .sr{will-change:transform,opacity}
 </style>
 </head>
@@ -104,102 +146,137 @@ h1{
 <header>
   <div class="container navbar">
     <div class="brand">
-      <!-- exact image, no color changes -->
-      <img src="./assets/ip-wordmark.png" alt="Intangible Partners">
+      <!-- exact image, on white plate for visibility -->
+      <span class="logo-plate"><img src="./assets/ip-wordmark.png" alt="Intangible Partners"></span>
       <small>an Ateklo Company</small>
     </div>
   </div>
 </header>
 
-<!-- HERO (no SR here by your choice) -->
+<!-- HERO -->
 <section class="hero">
-  <video src="./assets/Hero Video.mp4" autoplay muted loop playsinline></video>
+  <video id="heroVideo" src="./assets/Hero Video.mp4" autoplay muted loop playsinline></video>
   <div class="glow one"></div>
   <div class="glow two"></div>
 
   <div class="container hero-inner">
-    <!-- exact image, no color changes -->
-    <img class="logo" src="./assets/ip-mark.png" alt="IP logo">
+    <!-- exact logo, on white plate for visibility -->
+    <span class="hero-plate"><img src="./assets/ip-mark.png" alt="IP logo" style="height:64px;display:block"></span>
     <h1>We are building an <span class="underline">Intangible</span> workforce that <span class="underline">Partners</span> with companies to improve operational efficiency, productivity, and value creation.</h1>
-    <div class="cta" style="margin-top:24px;">
+    <div class="cta" style="margin-top:18px;">
       <a class="btn" href="#contact">Work With Us</a>
     </div>
   </div>
 </section>
 
-<!-- BUILD -->
+<!-- BUILD (3 SMALL FLIP TILES) -->
 <section class="section sr" id="aim">
   <div class="container">
     <h3 class="sr">We aim to build</h3>
     <p class="lead sr">We aim to deploy a reliable AI workforce, with human-level performance, and super-human intelligence.</p>
 
-    <div class="grid cols-3" style="margin-top:40px;">
-      <img class="sr" src="./assets/AI Agent Graphic.png" style="border-radius:12px;">
-      <img class="sr" src="./assets/Automation Graphic.png" style="border-radius:12px;">
-      <img class="sr" src="./assets/Orchestration Graphic.png" style="border-radius:12px;">
+    <div class="grid cols-3" style="margin-top:24px;">
+      <!-- AI Agent -->
+      <div class="flip-wrap sr"><div class="flip">
+        <div class="face front">
+          <span class="icon-badge"><img src="./assets/AI Agent Graphic.png" alt=""></span>
+          <span>AI Agent</span>
+        </div>
+        <div class="face back">
+          <strong>Custom AI Agents</strong><br>
+          Intelligent entities designed from the ground up to handle complex, domain-specific tasks and decision-making.
+        </div>
+      </div></div>
+
+      <!-- Automation -->
+      <div class="flip-wrap sr"><div class="flip">
+        <div class="face front">
+          <span class="icon-badge"><img src="./assets/Automation Graphic.png" alt=""></span>
+          <span>Automation</span>
+        </div>
+        <div class="face back">
+          <strong>Hyper Automation</strong><br>
+          Deploy a reliable digital workforce that operates 24/7, automating entire workflows and eliminating manual administrative burden.
+        </div>
+      </div></div>
+
+      <!-- Orchestration Infrastructure -->
+      <div class="flip-wrap sr"><div class="flip">
+        <div class="face front">
+          <span class="icon-badge"><img src="./assets/Orchestration Graphic.png" alt=""></span>
+          <span>Orchestration Infrastructure</span>
+        </div>
+        <div class="face back">
+          <strong>Orchestration Infrastructure</strong><br>
+          A robust, scalable platform to monitor, manage, and coordinate thousands of concurrent, autonomous agents.
+        </div>
+      </div></div>
     </div>
   </div>
 </section>
 
-<!-- STEPS -->
+<!-- STEPS (VERTICAL TIMELINE) -->
 <section class="section sr" id="steps">
   <div class="container">
     <h3 class="sr">3 Steps to Build</h3>
-    <div class="grid cols-3" style="margin-top:40px;">
-      <img class="sr" src="./assets/Step 1.png" style="border-radius:12px;">
-      <img class="sr" src="./assets/Step 2.png" style="border-radius:12px;">
-      <img class="sr" src="./assets/Step 3.png" style="border-radius:12px;">
+    <div class="timeline">
+      <div class="tl-item sr">
+        <span class="tl-dot"></span>
+        <strong>Step 1</strong><br>
+        Deploy a human to map out operations and identify opportunity areas.
+      </div>
+      <div class="tl-item sr">
+        <span class="tl-dot"></span>
+        <strong>Step 2</strong><br>
+        Find the area of most value potential.
+      </div>
+      <div class="tl-item sr">
+        <span class="tl-dot"></span>
+        <strong>Step 3</strong><br>
+        Begin building and implementing your digital workforce.
+      </div>
     </div>
   </div>
 </section>
 
-<!-- OUTCOMES (FLIP) -->
+<!-- OUTCOMES (SMALL FLIP TILES) -->
 <section class="section sr" id="outcomes">
   <div class="container">
     <h3 class="sr">Outcomes</h3>
-
-    <div class="grid cols-4" style="margin-top:40px;">
-
+    <div class="grid cols-4" style="margin-top:24px;">
       <div class="flip-wrap sr"><div class="flip">
-        <div class="face front">60%</div>
+        <div class="face front front-metric">60%</div>
         <div class="face back">We removed repetitive manual work by automating routine administrative workflows.</div>
       </div></div>
-
       <div class="flip-wrap sr"><div class="flip">
-        <div class="face front">4X</div>
+        <div class="face front front-metric">4X</div>
         <div class="face back">Clients generate more value than they spend because automation compounds efficiency faster.</div>
       </div></div>
-
       <div class="flip-wrap sr"><div class="flip">
-        <div class="face front">6X</div>
+        <div class="face front front-metric">6X</div>
         <div class="face back">AI agents rapidly qualify, prioritize, and route leads so teams close deals quicker.</div>
       </div></div>
-
       <div class="flip-wrap sr"><div class="flip">
-        <div class="face front">40%+</div>
+        <div class="face front front-metric">40%+</div>
         <div class="face back">Each deployment produces measurable improvements, validated by actual customer results.</div>
       </div></div>
-
     </div>
   </div>
 </section>
 
-<!-- WHO WE SERVE (FLIP) -->
+<!-- WHO WE SERVE (SMALL FLIP TILES) -->
 <section class="section sr" id="serve">
   <div class="container">
     <h3 class="sr">Who We Serve</h3>
-
-    <div class="grid cols-3" style="margin-top:40px;">
+    <div class="grid cols-3" style="margin-top:24px;">
       <div class="flip-wrap sr"><div class="flip">
         <div class="face front">Startups</div>
         <div class="face back">Give small teams leverage to operate like larger organizations without increasing headcount.</div>
       </div></div>
-
       <div class="flip-wrap sr"><div class="flip">
         <div class="face front">SMBs</div>
         <div class="face back">Drive operational efficiency where resources are limited and value creation matters most.</div>
       </div></div>
-
       <div class="flip-wrap sr"><div class="flip">
         <div class="face front">VC & PE</div>
         <div class="face back">Unlock hidden value inside portfolios by accelerating operational improvement across companies.</div>
@@ -213,14 +290,14 @@ h1{
   <div class="container">
     <h3 class="sr">Contact</h3>
     <p class="lead sr" style="color:var(--white)">Are you ready to start actually realizing the value of AI?<br>Lets get started — click here to contact us.</p>
-    <div class="cta sr" style="text-align:center;margin-top:30px;">
+    <div class="cta sr" style="text-align:center;margin-top:24px;">
       <a class="btn" href="mailto:info@intangiblepartners.com">info@intangiblepartners.com</a>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="container" style="padding:40px 0;color:rgba(255,255,255,.70);">© <span id="year"></span> Intangible Partners</div>
+  <div class="container" style="padding:36px 0;color:rgba(255,255,255,.70);">© <span id="year"></span> Intangible Partners</div>
 </footer>
 
 <!-- ScrollReveal CDN -->
@@ -235,25 +312,31 @@ document.querySelectorAll('.flip').forEach(card=>{
   card.addEventListener('click',()=> card.classList.toggle('flipped'));
 });
 
-// ScrollReveal (A + E): fade + slight slide up, reveal only once
+// Slow down hero video to 0.5x and keep it that way
+const v = document.getElementById('heroVideo');
+function setRate(){ try{ v.playbackRate = 0.5; }catch(e){} }
+v.addEventListener('loadedmetadata', setRate);
+v.addEventListener('play', setRate);
+setRate();
+
+// ScrollReveal (A + E): fade + slight slide up, reveal once
 const srCfg = {
   distance: '18px',
   origin: 'bottom',
   opacity: 0,
-  duration: 700,
+  duration: 650,
   easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
   scale: 1,
-  cleanup: true, // keep DOM clean after revealing
-  reset: false   // only once (E)
+  cleanup: true,
+  reset: false
 };
 
-// groups
-ScrollReveal().reveal('.section.sr > .container > h3.sr', {...srCfg, delay: 80});
-ScrollReveal().reveal('.section.sr > .container > p.lead.sr', {...srCfg, delay: 140});
-ScrollReveal().reveal('#aim .grid .sr, #steps .grid .sr', {...srCfg, interval: 80, delay: 120});
-ScrollReveal().reveal('#outcomes .flip-wrap.sr', {...srCfg, interval: 90, delay: 120});
-ScrollReveal().reveal('#serve .flip-wrap.sr', {...srCfg, interval: 90, delay: 120});
-ScrollReveal().reveal('#contact .sr', {...srCfg, interval: 80, delay: 120});
+// Apply reveals (skip hero by your request)
+ScrollReveal().reveal('#aim .sr', {...srCfg, interval: 80, delay: 60});
+ScrollReveal().reveal('#steps .sr', {...srCfg, interval: 90, delay: 90});
+ScrollReveal().reveal('#outcomes .sr', {...srCfg, interval: 80, delay: 60});
+ScrollReveal().reveal('#serve .sr', {...srCfg, interval: 80, delay: 60});
+ScrollReveal().reveal('#contact .sr', {...srCfg, interval: 80, delay: 60});
 </script>
 
 </body>
