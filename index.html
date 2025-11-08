@@ -14,12 +14,12 @@
     :root{
       --primary-neon:#00E4FF; /* Electric Cyan */
       --secondary-accent:#E879F9; /* Fuchsia */
-      --dark-bg:#030712; /* Deep Slate */
+      --dark-bg:#030712;        /* Deep Slate */
     }
     body{
       font-family:'Inter',sans-serif;
       background-color:var(--dark-bg);
-      color:#E5E7EB; /* Light Gray */
+      color:#E5E7EB;
     }
 
     /* Card hover glow */
@@ -36,61 +36,76 @@
       transform:translateY(-4px);
     }
 
-    /* Subtle animated hero background (kept) */
-    .hero-background{
-      background:linear-gradient(135deg,#030712 0%,#0c182c 50%,#030712 100%);
-      background-size:400% 400%;
-      animation:gradient-shift 15s ease infinite;
-    }
-    @keyframes gradient-shift{
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
-    }
-
-    /* Gradient text (kept for numeric stats etc.) */
+    /* Gradient numbers */
     .neon-text-gradient{
       background-image:linear-gradient(45deg,var(--primary-neon),var(--secondary-accent));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-clip:text;
-      text-fill-color:transparent;
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; text-fill-color:transparent;
     }
 
-    /* Background video */
+    /* Background video behind entire site */
     #bg-video{
       position:fixed; top:0; left:0;
       width:100vw; height:100vh;
       object-fit:cover;
       z-index:-1;
-      opacity:.22;             /* VERY subtle as requested */
+      opacity:.20;            /* ~0.20 as requested */
       pointer-events:none;
-      transform:translateY(0); /* will be parallax-shifted on scroll */
+      transform:translateY(0); /* parallax shift on scroll */
       transition:opacity .3s ease;
+    }
+
+    /* Header wordmark container */
+    .brand-wrap{
+      border-radius:.6rem;
+      padding:.35rem .5rem;
+      background: rgba(255,255,255,0.02);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.12) inset, 0 8px 24px rgba(0,0,0,.25);
+    }
+    .brand-img{
+      height: 34px; /* prevents cropping; adjust if needed */
+      object-fit: contain;
+      display:block;
+    }
+
+    /* IP smile subtle 3D */
+    .ip-3d{
+      filter: drop-shadow(0 10px 24px rgba(0,228,255,.25))
+              drop-shadow(0 2px 8px rgba(255,255,255,.05));
+    }
+
+    /* Remove black square look on the provided tile logo by blending with dark card */
+    .logo-no-bg{
+      display:block;
+      height:64px;
+      margin:0 auto 1rem auto;
+      mix-blend-mode: screen; /* makes black pixels “disappear” over dark card */
+      opacity:.95;
     }
   </style>
 </head>
 <body>
 
-  <!-- Full-page background video (paused until first scroll) -->
+  <!-- Background video: starts paused, plays after first scroll -->
   <video id="bg-video" muted loop playsinline>
     <source src="assets/bg-video.mp4" type="video/mp4"/>
   </video>
 
-  <!-- Navigation Bar -->
+  <!-- NAV -->
   <nav class="sticky top-0 z-50 bg-gray-950/90 backdrop-blur-sm border-b border-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-      <!-- Left branding: wordmark image + subtle outer border + better padding -->
+      <!-- Left branding: new wordmark image + subtle ring -->
       <div class="flex items-start">
-        <div class="rounded-md ring-1 ring-white/15 bg-white/0 px-2 py-1">
-          <img src="assets/ip-wordmark_big_white_cropped.png" alt="Intangible Partners" class="h-8 md:h-9 object-contain"/>
+        <div class="brand-wrap">
+          <!-- filename contains a space; URL-encoded space so it loads on GitHub Pages -->
+          <img src="assets/ip-wordmark%20(2).png" alt="Intangible Partners" class="brand-img"/>
         </div>
         <div class="flex flex-col justify-center ml-3 leading-tight">
           <span class="text-[10px] md:text-xs text-gray-400 tracking-wide">an Ateklo company</span>
         </div>
       </div>
 
-      <!-- Right nav (unchanged) -->
+      <!-- Right nav (kept) -->
       <div class="hidden md:flex space-x-8 text-sm font-medium">
         <a href="#vision" class="text-gray-400 hover:text-cyan-400 transition-colors">Vision</a>
         <a href="#how-it-works" class="text-gray-400 hover:text-cyan-400 transition-colors">Process</a>
@@ -101,19 +116,16 @@
   </nav>
 
   <main>
-    <!-- 1. Hero Section -->
-    <section id="hero" class="hero-background pt-28 sm:pt-32 pb-36 sm:pb-44 px-4 sm:px-6 lg:px-8 text-center border-b border-gray-900 overflow-hidden relative rounded-b-lg">
-      <!-- Subtle Grid Overlay (kept) -->
-      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:16px_16px]"></div>
-
+    <!-- HERO (remove solid cover so video is visible) -->
+    <section id="hero" class="pt-24 sm:pt-28 pb-32 sm:pb-40 px-4 sm:px-6 lg:px-8 text-center border-b border-gray-900 relative rounded-b-lg">
       <div class="relative z-10 max-w-4xl mx-auto">
-        <!-- Replace line “Intangible Partners” with IP Smile logo (smaller) -->
-        <img src="assets/ip-mark-truecolors-white.png" alt="IP Smile" class="mx-auto h-16 sm:h-20 mb-6 opacity-95"/>
+        <!-- IP smile smaller with soft 3D shadow -->
+        <img src="assets/ip-mark-truecolors-white.png" alt="IP Smile" class="mx-auto h-14 sm:h-16 mb-6 opacity-95 ip-3d"/>
 
-        <!-- Remove big H1 “The Autonomous Workforce is Here.” -->
-        <!-- Keep a concise 2-line statement (no highlight) -->
+        <!-- concise 2-line sentence -->
         <p class="text-2xl sm:text-3xl text-gray-200 max-w-3xl mx-auto mb-10 leading-relaxed font-semibold">
-          We build an Intangible workforce that partners with you to lift efficiency, productivity, and value.
+          We build an Intangible workforce that partners with you
+          to lift efficiency, productivity, and value.
         </p>
 
         <a href="#contact" class="inline-flex items-center justify-center px-8 py-3 text-lg font-bold rounded-full bg-cyan-500 text-gray-950 hover:bg-cyan-400 transition-all duration-300 shadow-xl shadow-cyan-500/50 transform hover:scale-[1.03]">
@@ -122,19 +134,17 @@
       </div>
     </section>
 
-    <!-- 2. Description Section (Vision) -->
+    <!-- VISION -->
     <section id="vision" class="py-20 sm:py-24 px-4 sm:px-6 lg:px-8">
       <div class="max-w-7xl mx-auto">
         <div class="text-center mb-12">
-          <!-- Removed big heading; keep a shorter line -->
           <p class="text-2xl sm:text-3xl text-gray-200 max-w-3xl mx-auto font-semibold">
             Reliable AI workforce — human-level performance, super-human intelligence — tailored to your domain.
           </p>
         </div>
 
-        <!-- Three Icon/Graphic Blocks -->
         <div class="grid md:grid-cols-3 gap-8">
-          <!-- Tile 1 (keep lucide) -->
+          <!-- Tile 1 (lucide) -->
           <div class="neon-border-card p-8 rounded-xl text-center">
             <div class="text-cyan-400 mb-4 inline-block">
               <i data-lucide="brain-circuit" class="w-16 h-16 mx-auto"></i>
@@ -143,7 +153,7 @@
             <p class="text-gray-400">Intelligent entities designed from the ground up to handle complex, domain-specific tasks and decision-making.</p>
           </div>
 
-          <!-- Tile 2 (keep lucide) -->
+          <!-- Tile 2 (lucide) -->
           <div class="neon-border-card p-8 rounded-xl text-center">
             <div class="text-fuchsia-400 mb-4 inline-block">
               <i data-lucide="zap" class="w-16 h-16 mx-auto"></i>
@@ -152,9 +162,9 @@
             <p class="text-gray-400">Deploy a reliable digital workforce that operates 24/7, automating entire workflows and eliminating manual administrative burden.</p>
           </div>
 
-          <!-- Tile 3 (insert small logo image here only) -->
+          <!-- Tile 3 (your small logo, blended so no black box) -->
           <div class="neon-border-card p-8 rounded-xl text-center">
-            <img src="assets/brain-logo.png" alt="IP Tile Logo" class="mx-auto h-16 mb-4 opacity-95"/>
+            <img src="assets/brain-logo.png" alt="IP Tile Logo" class="logo-no-bg" />
             <h3 class="text-2xl font-bold text-white mb-3">Orchestration Infrastructure</h3>
             <p class="text-gray-400">A robust, scalable platform to monitor, manage, and coordinate thousands of concurrent, autonomous agents.</p>
           </div>
@@ -162,7 +172,7 @@
       </div>
     </section>
 
-    <!-- 3. How it works Section (The Blueprint / TIMELINE) — UNCHANGED CONTENT -->
+    <!-- TIMELINE / BLUEPRINT (unchanged content) -->
     <section id="how-it-works" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-900/50 border-y border-gray-800">
       <div class="max-w-5xl mx-auto">
         <div class="text-center mb-16">
@@ -170,19 +180,14 @@
           <h2 class="text-4xl font-extrabold text-white">The IP Implementation Blueprint</h2>
         </div>
 
-        <!-- Steps Layout -->
         <div class="relative space-y-16">
-          <!-- Vertical connector -->
           <div class="absolute left-1/2 -ml-0.5 top-0 h-full w-px bg-cyan-600/30 hidden md:block"></div>
 
-          <!-- Step 1 -->
           <div class="flex flex-col md:flex-row items-center md:even:flex-row-reverse">
             <div class="md:w-1/2 p-4 md:even:text-right">
               <div class="text-5xl font-extrabold text-cyan-400 mb-2">01</div>
               <h3 class="text-3xl font-bold text-white mb-3">Human Mapping & Discovery</h3>
-              <p class="text-gray-400">
-                <strong>Step One:</strong> Deploy a human to map out operations and identify opportunity areas. Our experts embed themselves to fully understand your processes, identifying friction and high-leverage points.
-              </p>
+              <p class="text-gray-400"><strong>Step One:</strong> Deploy a human to map out operations and identify opportunity areas. Our experts embed themselves to fully understand your processes, identifying friction and high-leverage points.</p>
             </div>
             <div class="md:w-1/2 flex justify-center md:even:justify-end">
               <div class="p-4 rounded-full bg-cyan-600/20 ring-4 ring-cyan-500/50">
@@ -191,14 +196,11 @@
             </div>
           </div>
 
-          <!-- Step 2 -->
           <div class="flex flex-col md:flex-row items-center md:even:flex-row-reverse">
             <div class="md:w-1/2 p-4 md:even:text-right">
               <div class="text-5xl font-extrabold text-cyan-400 mb-2">02</div>
               <h3 class="text-3xl font-bold text-white mb-3">Value Potential Targeting</h3>
-              <p class="text-gray-400">
-                <strong>Step Two:</strong> Find the area of most value potential. We prioritize workflows based on immediate ROI and strategic impact, ensuring your first agents deliver maximum value.
-              </p>
+              <p class="text-gray-400"><strong>Step Two:</strong> Find the area of most value potential. We prioritize workflows based on immediate ROI and strategic impact, ensuring your first agents deliver maximum value.</p>
             </div>
             <div class="md:w-1/2 flex justify-center md:even:justify-start">
               <div class="p-4 rounded-full bg-cyan-600/20 ring-4 ring-cyan-500/50">
@@ -207,14 +209,11 @@
             </div>
           </div>
 
-          <!-- Step 3 -->
           <div class="flex flex-col md:flex-row items-center md:even:flex-row-reverse">
             <div class="md:w-1/2 p-4 md:even:text-right">
               <div class="text-5xl font-extrabold text-cyan-400 mb-2">03</div>
               <h3 class="text-3xl font-bold text-white mb-3">Deployment & Scaling</h3>
-              <p class="text-gray-400">
-                <strong>Step Three:</strong> Begin building and implementing your digital workforce. Custom AI agents are deployed, integrated, monitored, and scaled across your entire organization.
-              </p>
+              <p class="text-gray-400"><strong>Step Three:</strong> Begin building and implementing your digital workforce. Custom AI agents are deployed, integrated, monitored, and scaled across your entire organization.</p>
             </div>
             <div class="md:w-1/2 flex justify-center md:even:justify-end">
               <div class="p-4 rounded-full bg-cyan-600/20 ring-4 ring-cyan-500/50">
@@ -227,31 +226,29 @@
       </div>
     </section>
 
-    <!-- 4. Outcome/Proof Section (Results) -->
+    <!-- METRICS (solid cards now) -->
     <section id="outcomes" class="py-20 sm:py-24 px-4 sm:px-6 lg:px-8">
       <div class="max-w-7xl mx-auto">
         <div class="text-center mb-12">
-          <!-- Removed heading; keep shorter line -->
           <p class="text-2xl sm:text-3xl text-gray-200 max-w-3xl mx-auto font-semibold">
             Our approach converts intangible intelligence into measurable business results.
           </p>
         </div>
 
-        <!-- Outcome Statistics Grid (transparent cards kept) -->
         <div class="grid md:grid-cols-3 gap-8">
-          <div class="bg-gray-800/50 p-8 rounded-2xl text-center border border-fuchsia-500/30 hover:shadow-2xl hover:shadow-fuchsia-500/20 transition-all">
+          <div class="bg-gray-800 p-8 rounded-2xl text-center border border-fuchsia-500/30 hover:shadow-2xl hover:shadow-fuchsia-500/20 transition-all">
             <div class="text-7xl font-extrabold neon-text-gradient mb-2">60%</div>
             <p class="text-lg font-medium text-gray-300">Reduction in Admin tasks</p>
             <p class="text-sm text-gray-500 mt-2">Freeing up human talent for high-level strategy.</p>
           </div>
 
-          <div class="bg-gray-800/50 p-8 rounded-2xl text-center border border-cyan-500/30 hover:shadow-2xl hover:shadow-cyan-500/20 transition-all">
+          <div class="bg-gray-800 p-8 rounded-2xl text-center border border-cyan-500/30 hover:shadow-2xl hover:shadow-cyan-500/20 transition-all">
             <div class="text-7xl font-extrabold neon-text-gradient mb-2">4X</div>
             <p class="text-lg font-medium text-gray-300">Return on Investment (ROI)</p>
             <p class="text-sm text-gray-500 mt-2">Achieved within the first 12 months of deployment.</p>
           </div>
 
-          <div class="bg-gray-800/50 p-8 rounded-2xl text-center border border-green-500/30 hover:shadow-2xl hover:shadow-green-500/20 transition-all">
+          <div class="bg-gray-800 p-8 rounded-2xl text-center border border-green-500/30 hover:shadow-2xl hover:shadow-green-500/20 transition-all">
             <div class="text-7xl font-extrabold neon-text-gradient mb-2">6X</div>
             <p class="text-lg font-medium text-gray-300">Faster Lead Generation</p>
             <p class="text-sm text-gray-500 mt-2">Accelerating sales cycles with autonomous qualification.</p>
@@ -260,12 +257,10 @@
       </div>
     </section>
 
-    <!-- 5. Who we serve & CTA (kept) -->
+    <!-- CTA -->
     <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-900 border-t border-gray-800">
       <div class="max-w-5xl mx-auto text-center">
-        <h2 class="text-4xl font-extrabold text-white mb-4">
-          Ready to Partner with the Future?
-        </h2>
+        <h2 class="text-4xl font-extrabold text-white mb-4">Ready to Partner with the Future?</h2>
         <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-10">
           We work with growing companies that want to intentionally implement AI that can lower cost, optimize back office operations, and create real value. Stop managing tasks, start orchestrating agents.
         </p>
@@ -277,7 +272,7 @@
     </section>
   </main>
 
-  <!-- Footer (kept) -->
+  <!-- Footer -->
   <footer class="bg-gray-950 py-8 border-t border-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
       <p>&copy; 2025 Intangible Partners (IP). All Rights Reserved.</p>
@@ -285,42 +280,36 @@
     </div>
   </footer>
 
-  <!-- Initialize Lucide + Scroll Video Logic -->
+  <!-- Icons + Scroll/Parallax Video Logic -->
   <script>
-    // icons
     lucide.createIcons();
 
-    // background video: play only after first scroll; keep playing afterward
     (function(){
       const vid = document.getElementById('bg-video');
       let hasPlayed = false;
 
-      function tryPlay(){
-        if(!hasPlayed){
-          hasPlayed = true;
-          // ensure starts from beginning and plays
-          try { vid.currentTime = 0; } catch(e){}
-          const p = vid.play();
-          if(p && typeof p.catch === 'function'){ p.catch(()=>{}); }
-          window.removeEventListener('scroll', onFirstScroll);
-          window.removeEventListener('touchmove', onFirstScroll, {passive:true});
-        }
-      }
-      function onFirstScroll(){ tryPlay(); }
-
       // start paused
       try { vid.pause(); } catch(e){}
 
-      // parallax-like shift
+      function playOnceOnScroll(){
+        if(!hasPlayed){
+          hasPlayed = true;
+          try { vid.currentTime = 0; } catch(e){}
+          const p = vid.play();
+          if(p && typeof p.catch === 'function'){ p.catch(()=>{}); }
+          window.removeEventListener('scroll', playOnceOnScroll);
+          window.removeEventListener('touchmove', playOnceOnScroll, {passive:true});
+        }
+      }
+
+      // subtle parallax shift for the fixed bg video
       function onParallax(){
-        const y = window.scrollY || window.pageYOffset || 0;
-        // move slower than scroll for subtle parallax
+        const y = window.scrollY || 0;
         vid.style.transform = 'translateY(' + (y * 0.2) + 'px)';
       }
 
-      // listeners
-      window.addEventListener('scroll', onFirstScroll, {passive:true});
-      window.addEventListener('touchmove', onFirstScroll, {passive:true});
+      window.addEventListener('scroll', playOnceOnScroll, {passive:true});
+      window.addEventListener('touchmove', playOnceOnScroll, {passive:true});
       window.addEventListener('scroll', onParallax, {passive:true});
       window.addEventListener('touchmove', onParallax, {passive:true});
     })();
