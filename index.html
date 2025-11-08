@@ -63,9 +63,9 @@
       box-shadow: 0 0 0 1px rgba(255,255,255,.12) inset, 0 8px 24px rgba(0,0,0,.25);
     }
     .brand-img{
-      width: 210px;            /* wider horizontal footprint */
+      width: 240px;            /* changed from 210px to 240px */
       height: 36px;
-      object-fit: contain;     /* prevent cropping */
+      object-fit: contain;
       display:block;
     }
 
@@ -188,6 +188,7 @@
               <h3 class="text-3xl font-bold text-white mb-3">Human Mapping & Discovery</h3>
               <p class="text-gray-400"><strong>Step One:</strong> Deploy a human to map out operations and identify opportunity areas. Our experts embed themselves to fully understand your processes, identifying friction and high-leverage points.</p>
             </div>
+            <div class="md:w-1/2');?>
             <div class="md:w-1/2 flex justify-center md:even:justify-end">
               <div class="p-4 rounded-full bg-cyan-600/20 ring-4 ring-cyan-500/50">
                 <i data-lucide="users" class="w-12 h-12 text-cyan-400"></i>
@@ -225,7 +226,7 @@
       </div>
     </section>
 
-    <!-- METRICS (solid cards; darker support lines) -->
+    <!-- METRICS -->
     <section id="outcomes" class="py-20 sm:py-24 px-4 sm:px-6 lg:px-8">
       <div class="max-w-7xl mx-auto">
         <div class="text-center mb-12">
@@ -238,19 +239,19 @@
           <div class="bg-gray-800 p-8 rounded-2xl text-center border border-fuchsia-500/30 hover:shadow-2xl hover:shadow-fuchsia-500/20 transition-all">
             <div class="text-7xl font-extrabold neon-text-gradient mb-2">60%</div>
             <p class="text-lg font-medium text-gray-300">Reduction in Admin tasks</p>
-            <p class="text-sm text-gray-400 mt-2">Freeing up human talent for high-level strategy.</p>
+            <p class="text-base text-gray-400 mt-2">Freeing up human talent for high-level strategy.</p>
           </div>
 
           <div class="bg-gray-800 p-8 rounded-2xl text-center border border-cyan-500/30 hover:shadow-2xl hover:shadow-cyan-500/20 transition-all">
             <div class="text-7xl font-extrabold neon-text-gradient mb-2">4X</div>
             <p class="text-lg font-medium text-gray-300">Return on Investment (ROI)</p>
-            <p class="text-sm text-gray-400 mt-2">Achieved within the first 12 months of deployment.</p>
+            <p class="text-base text-gray-400 mt-2">Achieved within the first 12 months of deployment.</p>
           </div>
 
           <div class="bg-gray-800 p-8 rounded-2xl text-center border border-green-500/30 hover:shadow-2xl hover:shadow-green-500/20 transition-all">
             <div class="text-7xl font-extrabold neon-text-gradient mb-2">6X</div>
             <p class="text-lg font-medium text-gray-300">Faster Lead Generation</p>
-            <p class="text-sm text-gray-400 mt-2">Accelerating sales cycles with autonomous qualification.</p>
+            <p class="text-base text-gray-400 mt-2">Accelerating sales cycles with autonomous qualification.</p>
           </div>
         </div>
       </div>
@@ -288,15 +289,11 @@
       let scrollTimeout = null;
       let hasInteracted = false;
 
-      // slow playback
       vid.playbackRate = 0.75;
 
-      // always start paused
       try { vid.pause(); } catch(e){}
 
-      // play while scrolling; pause 500ms after scroll stops
       function onScrollActivity(){
-        // first interaction: allow play
         if(!hasInteracted){
           hasInteracted = true;
         }
@@ -308,11 +305,8 @@
         } catch(e){}
 
         if(scrollTimeout) clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(()=>{
-          try { vid.pause(); } catch(e){}
-        }, 500); // pause shortly after scrolling stops
+        scrollTimeout = setTimeout(()=>{ try { vid.pause(); } catch(e){} }, 500);
 
-        // subtle parallax
         const y = window.scrollY || 0;
         vid.style.transform = 'translateY(' + (y * 0.18) + 'px)';
       }
