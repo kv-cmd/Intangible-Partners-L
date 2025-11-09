@@ -23,10 +23,17 @@
       color:#E5E7EB;
     }
     
-    section{
-  background:rgba(3,7,18,0.18) !important;
-  backdrop-filter:blur(4px);
+    /* remove global section background */
+section{
+  background:transparent !important;
 }
+
+/* only apply blur to hero if you want it to float */
+#hero{
+  background:rgba(3,7,18,0.18);
+  backdrop-filter:blur(6px);
+}
+
 
 
     /* Card hover glow */
@@ -325,6 +332,7 @@
   </script>
 </body>
 </html>
+
 
 
 
